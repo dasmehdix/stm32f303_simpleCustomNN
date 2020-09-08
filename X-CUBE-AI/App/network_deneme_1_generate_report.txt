@@ -1,0 +1,123 @@
+Neural Network Tools for STM32 v1.3.0 (AI tools v5.1.0)
+Created date       : 2020-07-28 16:48:41
+Parameters         : generate --name network_deneme_1 -m /home/robogor/Desktop/workshop/muhur/model_5.h5 --type keras --compression 1 --verbosity 1 --workspace /tmp/mxAI_workspace205073925368948683662246282798425 --output /home/robogor/.stm32cubemx/stm32ai_output
+
+Exec/report summary (generate dur=0.32s err=0)
+------------------------------------------------------------------------------------------------------------------------
+model file         : /home/robogor/Desktop/workshop/muhur/model_5.h5
+type               : keras (keras_dump) - tf.keras 2.2.4-tf
+c_name             : network_deneme_1
+compression        : None
+quantize           : None
+workspace dir      : /tmp/mxAI_workspace205073925368948683662246282798425
+output dir         : /home/robogor/.stm32cubemx/stm32ai_output
+
+model_name         : model_5
+model_hash         : ee5e991f8e7ed04e825b034307b4bf92
+input              : input_0 [6 items, 24 B, ai_float, FLOAT32, (6,)]
+inputs (total)     : 24 B
+output             : dense_20_nl [2 items, 8 B, ai_float, FLOAT32, (2,)]
+outputs (total)    : 8 B
+params #           : 69 items (276 B)
+macc               : 97
+weights (ro)       : 276 B (276 B) 
+activations (rw)   : 36 B (36 B) 
+ram (total)        : 68 B (68 B) = 36 + 24 + 8
+
+------------------------------------------------------------------------------------------------------------------------
+id  layer (type)               output shape      param #     connected to             macc           rom                
+------------------------------------------------------------------------------------------------------------------------
+0   input_0 (Input)            (6,)                                                                                     
+    dense_18 (Dense)           (5,)              35          input_0                  30             140                
+    dense_18_nl (Nonlinearity) (5,)                          dense_18                 5                                 
+------------------------------------------------------------------------------------------------------------------------
+1   dense_19 (Dense)           (4,)              24          dense_18_nl              20             96                 
+    dense_19_nl (Nonlinearity) (4,)                          dense_19                 4                                 
+------------------------------------------------------------------------------------------------------------------------
+2   dense_20 (Dense)           (2,)              10          dense_19_nl              8              40                 
+    dense_20_nl (Nonlinearity) (2,)                          dense_20                 30                                
+------------------------------------------------------------------------------------------------------------------------
+model_5 p=69(276 Bytes) macc=97 rom=276 Bytes ram=36 B io_ram=32 B
+
+
+
+Generated C-graph summary
+------------------------------------------------------------------------------------------------------------------------
+model name         : model_5
+c-name             : network_deneme_1
+c-node #           : 6
+c-array #          : 13
+activations size   : 36
+weights size       : 276
+macc               : 97
+inputs             : ['input_0_output_array']
+outputs            : ['dense_20_nl_output_array']
+
+
+C-Arrays (13)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_array)      item/size           mem-pool     c-type       fmt    comment            
+------------------------------------------------------------------------------------------------------------------------
+0     dense_20_bias       2/8                 weights      const float  float                     
+1     dense_20_weights    8/32                weights      const float  float                     
+2     dense_19_bias       4/16                weights      const float  float                     
+3     dense_19_weights    20/80               weights      const float  float                     
+4     dense_18_bias       5/20                weights      const float  float                     
+5     dense_18_weights    30/120              weights      const float  float                     
+6     input_0_output      6/24                user         float        float  /input             
+7     dense_18_output     5/20                activations  float        float                     
+8     dense_18_nl_output  5/20                activations  float        float                     
+9     dense_19_output     4/16                activations  float        float                     
+10    dense_19_nl_output  4/16                activations  float        float                     
+11    dense_20_output     2/8                 activations  float        float                     
+12    dense_20_nl_output  2/8                 user         float        float  /output            
+------------------------------------------------------------------------------------------------------------------------
+
+
+C-Layers (6)
+------------------------------------------------------------------------------------------------------------------------
+c_id  name (*_layer)  id  type   macc        rom         tensors                shape (array id)                       
+------------------------------------------------------------------------------------------------------------------------
+0     dense_18        0   dense  30          140         I: input_0_output      [1, 1, 1, 6] (6)                       
+                                                         W: dense_18_weights                                           
+                                                         W: dense_18_bias                                              
+                                                         O: dense_18_output     [1, 1, 1, 5] (7)                       
+------------------------------------------------------------------------------------------------------------------------
+1     dense_18_nl     0   nl     5           0           I: dense_18_output     [1, 1, 1, 5] (7)                       
+                                                         O: dense_18_nl_output  [1, 1, 1, 5] (8)                       
+------------------------------------------------------------------------------------------------------------------------
+2     dense_19        1   dense  20          96          I: dense_18_nl_output  [1, 1, 1, 5] (8)                       
+                                                         W: dense_19_weights                                           
+                                                         W: dense_19_bias                                              
+                                                         O: dense_19_output     [1, 1, 1, 4] (9)                       
+------------------------------------------------------------------------------------------------------------------------
+3     dense_19_nl     1   nl     4           0           I: dense_19_output     [1, 1, 1, 4] (9)                       
+                                                         O: dense_19_nl_output  [1, 1, 1, 4] (10)                      
+------------------------------------------------------------------------------------------------------------------------
+4     dense_20        2   dense  8           40          I: dense_19_nl_output  [1, 1, 1, 4] (10)                      
+                                                         W: dense_20_weights                                           
+                                                         W: dense_20_bias                                              
+                                                         O: dense_20_output     [1, 1, 1, 2] (11)                      
+------------------------------------------------------------------------------------------------------------------------
+5     dense_20_nl     2   nl     30          0           I: dense_20_output     [1, 1, 1, 2] (11)                      
+                                                         O: dense_20_nl_output  [1, 1, 1, 2] (12)                      
+------------------------------------------------------------------------------------------------------------------------
+
+
+ 
+Complexity per-layer - macc=97 rom=276
+------------------------------------------------------------------------------------------------------------------------
+id      layer (type)               macc                                    rom                                    
+------------------------------------------------------------------------------------------------------------------------
+0       dense_18 (Dense)           |||||||||||||||||||||||||||||||  30.9%  |||||||||||||||||||||||||||||||  50.7% 
+0       dense_18_nl (Nonlinearity) ||||||                            5.2%  |                                 0.0% 
+1       dense_19 (Dense)           |||||||||||||||||||||            20.6%  |||||||||||||||||||||            34.8% 
+1       dense_19_nl (Nonlinearity) |||||                             4.1%  |                                 0.0% 
+2       dense_20 (Dense)           |||||||||                         8.2%  |||||||||                        14.5% 
+2       dense_20_nl (Nonlinearity) |||||||||||||||||||||||||||||||  30.9%  |                                 0.0% 
+------------------------------------------------------------------------------------------------------------------------
+
+
+Evaluation report (summary)
+------------------------------------------------------------
+NOT EVALUATED
